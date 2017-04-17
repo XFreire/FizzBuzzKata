@@ -11,26 +11,62 @@ import XCTest
 
 class KataFizzBuzzTests: XCTestCase {
     
-    override func setUp() {
-        super.setUp()
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+    func testShouldReturnNumberIfNotDevisibleByThreeAndFive() {
+        let fizzBuzz = FizzBuzz()
+        XCTAssertEqual(try! fizzBuzz.answerForNumber(1), "1")
+        XCTAssertEqual(try! fizzBuzz.answerForNumber(2), "2")
+        XCTAssertEqual(try! fizzBuzz.answerForNumber(4), "4")
     }
     
-    override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-        super.tearDown()
+    func testShouldFizzForMultiplesOfThree() {
+        let fizzBuzz = FizzBuzz()
+        XCTAssertEqual(try! fizzBuzz.answerForNumber(3), "Fizz")
+        XCTAssertEqual(try! fizzBuzz.answerForNumber(6), "Fizz")
+        XCTAssertEqual(try! fizzBuzz.answerForNumber(9), "Fizz")
+        XCTAssertEqual(try! fizzBuzz.answerForNumber(24), "Fizz")
     }
     
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+    func testShouldReturnBuzzForMultipleOfFive() {
+        let fizzBuzz = FizzBuzz()
+        XCTAssertEqual(try! fizzBuzz.answerForNumber(5), "Buzz")
+        XCTAssertEqual(try! fizzBuzz.answerForNumber(10), "Buzz")
+        XCTAssertEqual(try! fizzBuzz.answerForNumber(20), "Buzz")
+        XCTAssertEqual(try! fizzBuzz.answerForNumber(25), "Buzz")
     }
     
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measureBlock {
-            // Put the code you want to measure the time of here.
+    func testShouldReturnFizzBuzzForMultipleOfThreeAndFive() {
+        let fizzBuzz = FizzBuzz()
+        XCTAssertEqual(try! fizzBuzz.answerForNumber(15), "FizzBuzz")
+        XCTAssertEqual(try! fizzBuzz.answerForNumber(30), "FizzBuzz")
+        XCTAssertEqual(try! fizzBuzz.answerForNumber(45), "FizzBuzz")
+        XCTAssertEqual(try! fizzBuzz.answerForNumber(60), "FizzBuzz")
+    }
+    
+    func testShouldThrowForZero() {
+        let fizzBuzz = FizzBuzz()
+        do {
+           try fizzBuzz.answerForNumber(0)
+        }
+        catch let error as Error{
+            XCTAssertEqual(error, Error.Zero)
+        }
+        catch {
+            XCTFail()
         }
     }
+    
+    func testShouldThrowForMinus() {
+        let fizzBuzz = FizzBuzz()
+        do {
+            try fizzBuzz.answerForNumber(-2)
+        }
+        catch let error as Error{
+            XCTAssertEqual(error, Error.NegativeValue)
+        }
+        catch {
+            XCTFail()
+        }
+    }
+    
     
 }
